@@ -1,0 +1,6 @@
+react hook form
+react router 
+context api
+redux
+usereducer
+
