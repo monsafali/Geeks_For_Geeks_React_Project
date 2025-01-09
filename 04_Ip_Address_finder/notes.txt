@@ -1,0 +1,25 @@
+when we need to add a map functionality in over react project we need to install
+
+npm install react@latest react-dom@latest
+
+npm install react-leaflet leaflet
+
+then go to : https://react-leaflet.js.org/
+
+and copyh basic code 
+
+import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+
+<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={[51.505, -0.09]}>
+      <Popup>
+        A pretty CSS3 popup. <br /> Easily customizable.
+      </Popup>
+    </Marker>
+  </MapContainer>
+
+
