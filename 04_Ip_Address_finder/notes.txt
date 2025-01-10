@@ -1,14 +1,17 @@
 when we need to add a map functionality in over react project we need to install
 
 npm install react@latest react-dom@latest
-
 npm install react-leaflet leaflet
 
 then go to : https://react-leaflet.js.org/
 
+go to : "https://geo.ipify.org/docs"
+then created a account and go city api and copy that api
 and copyh basic code 
 
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+
+import "leaflet/dist/leaflet.css";
 
 <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
     <TileLayer

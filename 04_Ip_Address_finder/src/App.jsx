@@ -1,13 +1,33 @@
-// https://geo.ipify.org/api/v2/country,city?apiKey=at_BkYtybnrR6o8b9MXfIXrbljLIz4c8&ipAddress=8.8.8.8
-
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 
+// import icon from "./Icon";
+
 import arrow from "./images/icon-arrow.svg";
 import background from "./images/pattern-bg-desktop.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
+  const [address, setAddress] = useState(null);
+  const [ipAddress, setIpAddress] = "";
+
+  useEffect(() => {
+    try {
+      const getInitialData = async () => {
+        const apiKey = import.meta.env.VITE_API_KEY;
+        const res = await fetch(
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=8.8.8.8`
+        );
+        const data = await res.json();
+        setAddress(data);
+        console.log(data);
+      };
+      getInitialData();
+    } catch (error) {
+      console.trace(error);
+    }
+  }, []);
+
   return (
     <>
       <section>
@@ -37,67 +57,69 @@ function App() {
           </form>
         </article>
 
-        <article
-          className="bg-white rounded-lg shadow p-8 mx-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl xl:mx-auto text-center md:text-left lg:-mb-20 relative"
-          style={{ zIndex: 1000 }}
-        >
-          <div className="lg:border-r lg:border-state-400">
-            <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
-              IP Address
-            </h2>
-            <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-3xl">
-              192.212.174.101
-            </p>
-          </div>
+        {address && (
+          <>
+            <article
+              className="bg-white rounded-lg shadow p-8 mx-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl xl:mx-auto text-center md:text-left lg:-mb-16 relative"
+              style={{ zIndex: 1000 }}
+            >
+              <div className="lg:border-r lg:border-state-400">
+                <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
+                  IP Address
+                </h2>
+                <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-3xl">
+                  {address.ip}
+                </p>
+              </div>
 
-          <div className="lg:border-r lg:border-state-400">
-            <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
-              location
-            </h2>
-            <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
-              Lahore
-            </p>
-          </div>
-          <div className="lg:border-r lg:border-state-400">
-            <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
-              TimeZone
-            </h2>
-            <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
-              UTC - 05:00
-            </p>
-          </div>
+              <div className="lg:border-r lg:border-state-400">
+                <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
+                  location
+                </h2>
+                <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
+                  {address.location.city}, {address.location.region}
+                </p>
+              </div>
+              <div className="lg:border-r lg:border-state-400">
+                <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
+                  TimeZone
+                </h2>
+                <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
+                  {address.location.timezone}
+                </p>
+              </div>
 
-          <div className="">
-            <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
-              ISP
-            </h2>
-            <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
-              SpaceX
-            </p>
-          </div>
-        </article>
+              <div className="">
+                <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">
+                  ISP
+                </h2>
+                <p className="font-semibold text-slate-400 text-lg md:text-xl xl:text-2xl">
+                  {address.isp}
+                </p>
+              </div>
+            </article>
 
-        <MapContainer
-          center={[51.505, -0.09]}
-          zoom={13}
-          scrollWheelZoom={false}
-          style={{ height: "700px", width: "100vw" }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[51.505, -0.09]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+            <MapContainer
+              center={[address.location.lat, address.location.lng]}
+              zoom={13}
+              scrollWheelZoom={true}
+              style={{ height: "700px", width: "100vw" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[address.location.lat, address.location.lng]}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+            </MapContainer>
+          </>
+        )}
       </section>
     </>
   );
 }
 
 export default App;
-
-39;
