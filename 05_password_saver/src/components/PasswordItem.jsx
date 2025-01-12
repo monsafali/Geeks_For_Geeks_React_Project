@@ -1,4 +1,5 @@
-import { FiCopy, FiTrash } from "react-icons/fi";
+import { FaRegCopy } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 
 function PasswordItem({ password, setPasswords, passwords, index }) {
@@ -20,7 +21,6 @@ function PasswordItem({ password, setPasswords, passwords, index }) {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedField(field);
       setTimeout(() => setCopiedField(""), 2000); // Reset the copied state after 2 seconds
-      alert(`${field} copied successfully!`);
     });
   };
 
@@ -48,7 +48,7 @@ function PasswordItem({ password, setPasswords, passwords, index }) {
         {/* Action Buttons */}
         <div className="flex space-x-4">
           {/* Copy Username */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center  space-x-1">
             <span className="text-sm">Username:</span>
             <button
               onClick={() => handleCopy(password.username, "Username")}
@@ -56,7 +56,7 @@ function PasswordItem({ password, setPasswords, passwords, index }) {
                 copiedField === "Username" ? "text-green-500" : ""
               }`}
             >
-              <FiCopy />
+              <FaRegCopy />
             </button>
           </div>
 
@@ -69,13 +69,13 @@ function PasswordItem({ password, setPasswords, passwords, index }) {
                 copiedField === "Password" ? "text-green-500" : ""
               }`}
             >
-              <FiCopy />
+              <FaRegCopy />
             </button>
           </div>
 
           {/* Delete Button */}
           <button onClick={handleDelete} className="btn btn-sm text-red-600">
-            <FiTrash />
+            <FaTrash />
           </button>
         </div>
       </div>

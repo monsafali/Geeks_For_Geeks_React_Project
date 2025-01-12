@@ -12,9 +12,9 @@ function ClearAllDialog({ setPasswords }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="btn btn-danger w-full mt-4"
+        className="w-full bg-red-400 text-white py-2 rounded hover:bg-red-800 transition duration-300"
       >
-        Clear All Passwords
+        Clear All Password
       </button>
 
       {isOpen && (

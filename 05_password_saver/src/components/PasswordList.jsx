@@ -1,38 +1,43 @@
 import PasswordItem from "./PasswordItem";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function PasswordList({ passwords, setPasswords }) {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const filteredPasswords = passwords.filter((password) =>
     password.website.toLowerCase().includes(search.toLowerCase())
   );
 
   const showPasswordsInJson = () => {
-    const jsonWindow = window.open("", "_blank", "width=600,height=400");
-    jsonWindow.document.write(
-      `<pre style="font-family: Arial, sans-serif; white-space: pre-wrap; word-wrap: break-word;">${JSON.stringify(
-        passwords,
-        null,
-        2
-      )}</pre>`
-    );
+    navigate("/json", { state: { passwords } });
+  };
+
+  const saveJsonToFile = () => {
+    const jsonBlob = new Blob([JSON.stringify(passwords, null, 2)], {
+      type: "application/json",
+    });
+    const downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(jsonBlob);
+    downloadLink.download = "passwords.json";
+    downloadLink.click();
   };
 
   return (
     <div className="p-4">
-      {/* Search Input and Button */}
+      {/* Search Input and Buttons */}
       <div className="flex items-center mb-4 space-x-4">
         <input
           type="text"
           placeholder="Search your password"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input input-bordered w-full"
+          className="input input-bordered w-full border border-blue-400 rounded-md p-2"
         />
         <button
           onClick={showPasswordsInJson}
-          className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+          className="w-48 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300"
         >
           Show Passwords
         </button>
@@ -42,7 +47,7 @@ function PasswordList({ passwords, setPasswords }) {
       <div
         className="space-y-4 overflow-y-auto"
         style={{
-          maxHeight: "252px", // 3 items * estimated height of 84px per item
+          maxHeight: "130px", // 3 items * estimated height of 84px per item
         }}
       >
         {filteredPasswords.map((password, index) => (
