@@ -3,27 +3,27 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import validator from "validator";
 import { useState } from "react";
 
-function PasswordForm({ password, setPasswords }) {
+function PasswordForm({ setPasswords, hideForm }) {
   const {
     register,
     handleSubmit,
-    reset, // Import reset function to clear form fields
+    reset,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
     setPasswords((prevPasswords) => [...prevPasswords, data]);
-    reset(); // Clear the input fields after successful submission
+    reset(); // Clear the form
+    hideForm(); // Hide the form after submission
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 bg-amber-50 p-6 rounded-xl shadow-md "
+      className="space-y-6 bg-amber-50 p-6 rounded-xl shadow-md"
     >
-      <h2 className="text-xl font-semibold text-center">Add New Password</h2>
-
+      {/* Fields for Website, Username, and Password */}
       <div>
         <label
           htmlFor="website"
@@ -42,7 +42,6 @@ function PasswordForm({ password, setPasswords }) {
           <p className="text-red-500 text-sm mt-1">{errors.website.message}</p>
         )}
       </div>
-
       <div>
         <label
           htmlFor="username"
@@ -87,7 +86,7 @@ function PasswordForm({ password, setPasswords }) {
       <div className="flex justify-between">
         <button
           type="submit"
-          className="w-36  bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300"
+          className="w-36 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300"
         >
           Save Password
         </button>

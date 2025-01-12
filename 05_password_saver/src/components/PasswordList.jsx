@@ -47,7 +47,7 @@ function PasswordList({ passwords, setPasswords }) {
       <div
         className="space-y-4 overflow-y-auto"
         style={{
-          maxHeight: "130px", // 3 items * estimated height of 84px per item
+          maxHeight: "500px", // 3 items * estimated height of 84px per item
         }}
       >
         {filteredPasswords.map((password, index) => (

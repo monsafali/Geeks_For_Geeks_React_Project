@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PasswordForm from "./components/PasswordForm";
 import PasswordList from "./components/PasswordList";
-import ClearAllDialog from "./components/ClearAllDialog";
 import JsonPage from "./components/JsonPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NewPass from "./components/NewPass";
 
 function App() {
   const [passwords, setPasswords] = useState([]);
@@ -16,8 +16,9 @@ function App() {
           element={
             <div className="container mx-auto p-4 max-w-[600px] bg-purple-100">
               <PasswordList passwords={passwords} setPasswords={setPasswords} />
-              <PasswordForm setPasswords={setPasswords} />
-              <ClearAllDialog setPasswords={setPasswords} />
+              <NewPass setPasswords={setPasswords} />
+
+              {/* <PasswordForm setPasswords={setPasswords} /> */}
             </div>
           }
         />
