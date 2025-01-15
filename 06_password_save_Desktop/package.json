@@ -1,0 +1,52 @@
+{
+  "name": "vite-electron-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Password saver desktop app",
+  "author": "Monsaf Ali",
+  "main": "main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "start": "electron .",
+    "build": "electron-packager . my-app --platform=win32 --arch=x64 --out=dist/ --overwrite"
+  },
+  "dependencies": {
+    "electron": "^26.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.1.1",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^5.4.1"
+  },
+  "build": {
+    "appId": "com.example.vite-electron-app",
+    "productName": "Password Saver",
+    "files": [
+      "dist/**/*",
+      "main.js"
+    ],
+    "directories": {
+      "output": "release"
+    }
+  }
+}
